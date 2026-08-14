@@ -3,7 +3,7 @@ import { studentService } from '../Service/studentService';
 
 const service = new studentService();
 
-export function registerStudentRoutes(app: Express) {
+export const registerStudentRoutes = (app: Express) => {
 
   app.get('/Students', async (req: Request, res: Response) => {
     const list = await service.getAll();
