@@ -17,28 +17,28 @@ export const registerStudentRoutes = (app: Express) => {
   });
 
   app.post('/Students', async (req: Request, res: Response) => {
-    const nom = req.body.nom;
+    const name = req.body.name;
     const age = req.body.age;
 
-    const newStudent = await service.create(nom, age);
+    const newStudent = await service.create(name, age);
     res.status(201).json(newStudent);
   });
 
   app.put('/Students/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const nom = req.body.nom;
+    const name = req.body.name;
     const age = req.body.age;
 
-    const updateStudent = await service.update(id, nom, age);
+    const updateStudent = await service.update(id, name, age);
     res.status(200).json(updateStudent);
   });
 
   app.patch('/Students/:id', async (req: Request, res: Response) => {
     const id = Number(req.params.id);
-    const nom = req.body.nom;
+    const name = req.body.name;
     const age = req.body.age;
 
-    const updatedStudent = await service.update(id, nom, age);
+    const updatedStudent = await service.update(id, name, age);
     res.status(200).json(updatedStudent);
   });
 
