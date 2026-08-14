@@ -2,7 +2,7 @@ import {Pool} from "pg";
 import {Student} from "../Model/studentModel";
 
 const pool = new Pool({
-    user: 'postgres',
+    user: 'mon_admin',
     host: 'localhost',
     database: 'students',
     password:'1234',
