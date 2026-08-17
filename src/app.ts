@@ -1,8 +1,10 @@
 import express from 'express';
-import { registerStudentRoutes } from './Controller/studentController';
+import cors from 'cors';
+import { registerStudentRoutes } from './express/Controller/studentController';
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 
 registerStudentRoutes(app);
