@@ -1,16 +1,16 @@
 import {Student} from "../Model/studentModel";
-require('dotenv').config();
-const { Pool } = require('pg');
+import { Pool } from "pg";
+import dotenv from "dotenv";
 
-const pool = new Pool({
+dotenv.config();
+
+export const pool = new Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT,
+    port: Number(process.env.DB_PORT),
 });
-
-module.exports = pool;
 
 export class studentRepository {
     async getAll(): Promise<Student[]> {

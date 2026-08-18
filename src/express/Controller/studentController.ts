@@ -1,5 +1,6 @@
 import { Express, Request, Response } from 'express';
 import { studentService } from '../Service/studentService';
+import { authenticateToken, authorizeRole } from '../Security/authMiddleware'; 
 
 const service = new studentService();
 
@@ -10,13 +11,13 @@ export const registerStudentRoutes = (app: Express) => {
     res.status(200).json(list);
   });
 
-   app.get('/Students/:id', async (req: Request, res: Response) => {
+   app.get('/Students/:id',authenticateToken, async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const student = await service.getById(id);
     res.status(200).json(student);
   });
 
-  app.post('/Students', async (req: Request, res: Response) => {
+  app.post('/Students',authenticateToken,authorizeRole('ADMIN'), async (req: Request, res: Response) => {
     const name = req.body.name;
     const age = req.body.age;
 
@@ -24,7 +25,7 @@ export const registerStudentRoutes = (app: Express) => {
     res.status(201).json(newStudent);
   });
 
-  app.put('/Students/:id', async (req: Request, res: Response) => {
+  app.put('/Students/:id',authenticateToken,authorizeRole('ADMIN'), async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const name = req.body.name;
     const age = req.body.age;
@@ -33,7 +34,7 @@ export const registerStudentRoutes = (app: Express) => {
     res.status(200).json(updateStudent);
   });
 
-  app.patch('/Students/:id', async (req: Request, res: Response) => {
+  app.patch('/Students/:id',authenticateToken,authorizeRole('ADMIN'), async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     const name = req.body.name;
     const age = req.body.age;
@@ -42,7 +43,7 @@ export const registerStudentRoutes = (app: Express) => {
     res.status(200).json(updatedStudent);
   });
 
-  app.delete('/Students/:id', async (req: Request, res: Response) => {
+  app.delete('/Students/:id', authenticateToken,authorizeRole('ADMIN'),async (req: Request, res: Response) => {
     const id = Number(req.params.id);
     await service.delete(id);
 
